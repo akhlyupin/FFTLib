@@ -1,1 +1,1 @@
-gcc -s -O3 src/main.c src/Complex.c src/FftCpu.c src/TestData.c
+gcc -s -O3 src/main.c src/Complex.c src/FftCpu.c src/TestData.c src/FFTCpuIterate.c
