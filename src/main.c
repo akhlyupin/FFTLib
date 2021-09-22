@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
 #include <math.h>
+#include "TestData.h"
 
-#define L       8388608
-#define ORDER   23
-
-float in[L]; 
 volatile float out[L];
 
 int rev_temp(int k, int n) {
@@ -50,17 +47,14 @@ void fill_revTable() {
 
 
 int main() {
-    for (int i = 0; i < L; i++) {
-        in[i] = sin(i);
-        out[i] = in[i];
-    }
+    TestData_Init();
     fill_kth();
     fill_revTable();
 
     long t = GetTickCount();
 
     for (int i = 0; i < L; i++) {
-        out[revTable[i]] = in[i];
+        out[revTable[i]] = testData[i];
     }
 
     float temp[2];
