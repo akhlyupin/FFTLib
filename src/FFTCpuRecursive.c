@@ -5,7 +5,8 @@
 #include <math.h>
 #include <stdio.h>
 
-void fftCpu(Complex_t * data_in, int n, Complex_t * data_out) {
+void FFTCpuRecursive_Process(
+	Complex_t * data_in, int n, Complex_t * data_out) {
 
 	if (n == 1) {
 		data_out[0] = data_in[0];
@@ -24,7 +25,7 @@ void fftCpu(Complex_t * data_in, int n, Complex_t * data_out) {
 			even[k].im = data_in[2 * k].im;
     }
     Complex_t evenFFT[n / 2];
-	fftCpu(even, n / 2, evenFFT);
+	FFTCpuRecursive_Process(even, n / 2, evenFFT);
 
 
     // compute FFT of odd terms
@@ -34,7 +35,7 @@ void fftCpu(Complex_t * data_in, int n, Complex_t * data_out) {
 		odd[k].im = data_in[2 * k + 1].im;
     }
 	Complex_t oddFFT[n / 2];
-	fftCpu(odd, n / 2, oddFFT);
+	FFTCpuRecursive_Process(odd, n / 2, oddFFT);
 
 	// combine
     for (int k = 0; k < n / 2; k++) {
