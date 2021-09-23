@@ -3,6 +3,7 @@
 */
 #include "TestData.h"
 #include <math.h>
+#include <stdio.h>
 
 static float kthSinTable[L / 2];
 static float kthCosTable[L / 2];
@@ -46,19 +47,19 @@ void FFTCpuIterate_Process(float * out) {
     float even[2];
     float odd[2];
     float wk[2];
-    int n = 1;
+    int factor = ORDER;
 
-    for (int i = 1; i <= ORDER; i++) {
-        n *= 2;
+    for (int n = 2; n <= L; n <<= 1) {
+        factor--;
 
-        for (int j = 0; j < L / 2 / n; j++) {
+        for (int j = 0; j < L / n; j++) {
             for (int k = 0; k < n / 2; k++) {
                 //double kth = -2 * k * M_PI / n;
-                wk[0] = kthCosTable[k];
-                wk[1] = kthSinTable[k];
+                wk[0] = kthCosTable[k << factor];//kthCosTable[k * (L / n)];
+                wk[1] = kthSinTable[k << factor];//kthSinTable[k * (L / n)];
 
                 int evenIndex = (j * n + k) * 2;
-                int oddIndex = (j * n + k + n / 2) * 2;
+                int oddIndex = evenIndex + n; //(j * n + k + n / 2) * 2;
 
                 even[0] = out[evenIndex];
                 even[1] = out[evenIndex + 1];
