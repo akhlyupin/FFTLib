@@ -4,7 +4,7 @@
 #include "TestData.h"
 #include "FFTCpuIterate.h"
 
-float out[L];
+float out[L * 2];
 
 
 int main() {

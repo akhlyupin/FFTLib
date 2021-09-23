@@ -38,7 +38,8 @@ void FFTCpuIterate_Init() {
 
 void FFTCpuIterate_Process(float * out) {
     for (int i = 0; i < L; i++) {
-        out[revTable[i]] = testData[i];
+        out[revTable[i] * 2] = testData[i * 2];
+        out[revTable[i] * 2 + 1] = testData[i * 2 + 1];
     }
 
     float temp[2];
