@@ -4,6 +4,9 @@
 #include "Complex.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include "TestData.h"
+
 
 void FFTCpuRecursive_Process(
 	Complex_t * data_in, int n, Complex_t * data_out) {
@@ -19,23 +22,21 @@ void FFTCpuRecursive_Process(
 	}
 
 	// compute FFT of even terms
-    Complex_t even[n / 2];
+	Complex_t * d = malloc(sizeof(Complex_t) * n / 2);
     for (int k = 0; k < n / 2; k++) {
-            even[k].re = data_in[2 * k].re;
-			even[k].im = data_in[2 * k].im;
+            d[k].re = data_in[2 * k].re;
+			d[k].im = data_in[2 * k].im;
     }
-    Complex_t evenFFT[n / 2];
-	FFTCpuRecursive_Process(even, n / 2, evenFFT);
-
+	Complex_t * evenFFT = malloc(sizeof(Complex_t) * n / 2);
+	FFTCpuRecursive_Process(d, n / 2, evenFFT);
 
     // compute FFT of odd terms
-    Complex_t odd[n / 2];
     for (int k = 0; k < n / 2; k++) {
-        odd[k].re = data_in[2 * k + 1].re;
-		odd[k].im = data_in[2 * k + 1].im;
+        d[k].re = data_in[2 * k + 1].re;
+		d[k].im = data_in[2 * k + 1].im;
     }
-	Complex_t oddFFT[n / 2];
-	FFTCpuRecursive_Process(odd, n / 2, oddFFT);
+	Complex_t * oddFFT = malloc(sizeof(Complex_t) * n / 2);
+	FFTCpuRecursive_Process(d, n / 2, oddFFT);
 
 	// combine
     for (int k = 0; k < n / 2; k++) {
@@ -48,4 +49,8 @@ void FFTCpuRecursive_Process(
 			addComplex(&evenFFT[k], &temp0, &data_out[k]);
 			subComplex(&evenFFT[k], &temp0, &data_out[k + n / 2]);
     }
+
+	free(d);
+	free(evenFFT);
+	free(oddFFT);
 }
