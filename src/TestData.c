@@ -11,5 +11,7 @@ void TestData_Init() {
     for (int i = 0; i < L; i++) {   
         testData[i * 2] = sin(i);
         testData[i * 2 + 1] = 0;
+        testComplexData[i].re = sin(i);
+        testComplexData[i].im = 0;
     }
 }
