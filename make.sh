@@ -3,5 +3,5 @@ gcc -O3 -s -msse \
     src/Complex.c \
     src/FFTBasic.c \
     src/TestData.c \
-    src/FftLut.c \
+    src/FFTLut.c \
     src/FFT2SSE.c

@@ -14,7 +14,7 @@
 
 static complex float * wTable;
 
-void FftLut_Init(int n) {
+void FFTLut_Init(int n) {
     wTable = malloc(n / 2 * sizeof(complex float));
 
     //fill w table
@@ -23,7 +23,7 @@ void FftLut_Init(int n) {
     }
 }
 
-void FftLut_Close() {
+void FFTLut_Close() {
     free(wTable);
 }
 
@@ -49,6 +49,6 @@ static void fft_lut_proc(complex float * in, complex float * out, int stride, in
     }
 }
 
-void FftLut_Process(complex float * in, complex float * out, int n) {
+void FFTLut_Process(complex float * in, complex float * out, int n) {
     fft_lut_proc(in, out, 1, n);
 }

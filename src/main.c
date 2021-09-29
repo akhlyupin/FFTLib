@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include "TestData.h"
-#include "FftLut.h"
+#include "FFTLut.h"
 #include "FFTBasic.h"
 #include "FFT2SSE.h"
 
@@ -35,7 +35,7 @@ void isDataEquals(float * d0, float * d1, int n) {
 
 int main() {
     TestData_Init();
-    FftLut_Init(L);
+    FFTLut_Init(L);
     FFT2SSE_Init(L);
 
     printf("FFT Basic: ");
@@ -49,7 +49,7 @@ int main() {
     fflush(stdout);
 
     t = GetTickCount();
-    FftLut_Process(testComplexData2, outComplex1, L);
+    FFTLut_Process(testComplexData2, outComplex1, L);
     printf("%dms\n", GetTickCount() - t);
     
     printf("FFT with Look-up table and SSE instructions: ");
@@ -68,6 +68,6 @@ int main() {
     isDataEquals((float *)outComplex, (float *)outComplex2, L * 2);
     printf("Check time period: %dms\n", GetTickCount() - t);
 
-    FftLut_Close();
+    FFTLut_Close();
     return 0;
 }

@@ -5,9 +5,9 @@
 #ifndef FFT_LUT_H
 #define FFT_LUT_H
 
-extern void FftLut_Init(int n);
-extern void FftLut_Close();
+extern void FFTLut_Init(int n);
+extern void FFTLut_Close();
 
-extern void FftLut_Process(complex float * in, complex float * out, int n);
+extern void FFTLut_Process(complex float * in, complex float * out, int n);
 
 #endif
