@@ -7,9 +7,9 @@
 #include "FFTBasic.h"
 #include "FFTSSE.h"
 
-complex float outComplex[L];
-complex float outComplex1[L];
-complex float outComplex2[L];
+complex float outData0[L];
+complex float outData1[L];
+complex float outData2[L];
 
 #define BIT_RES 1//21
 
@@ -42,29 +42,29 @@ int main() {
     fflush(stdout);
 
     long t = GetTickCount();
-    FFTBasic_Process(testComplexData2, outComplex, L);
+    FFTBasic_Process(testData, outData0, L);
     printf("%dms\n", GetTickCount() - t);
 
     printf("FFT with Look-up table: ");
     fflush(stdout);
 
     t = GetTickCount();
-    FFTLut_Process(testComplexData2, outComplex1, L);
+    FFTLut_Process(testData, outData1, L);
     printf("%dms\n", GetTickCount() - t);
     
     printf("FFT with Look-up table and SSE instructions: ");
     fflush(stdout);
     
     t = GetTickCount();
-    FFTSSE_Process(testComplexData2, outComplex2, L);
+    FFTSSE_Process(testData, outData2, L);
     printf("%dms\n", GetTickCount() - t);
     
     printf("\nCheck equals...\n");
     fflush(stdout);
 
     t = GetTickCount();
-    isDataEquals((float *)outComplex, (float *)outComplex1, L * 2);
-    isDataEquals((float *)outComplex, (float *)outComplex2, L * 2);
+    isDataEquals((float *)outData0, (float *)outData1, L * 2);
+    isDataEquals((float *)outData0, (float *)outData2, L * 2);
     printf("Check time period: %dms\n", GetTickCount() - t);
     fflush(stdout);
 

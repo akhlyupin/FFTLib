@@ -4,13 +4,10 @@
 #include "TestData.h"
 #include <math.h>
 
-Complex_t testComplexData[L];
-complex float testComplexData2[L];
+complex float testData[L];
 
 void TestData_Init() {
-    for (int i = 0; i < L; i++) {  
-        testComplexData[i].re = sin(i);
-        testComplexData[i].im = 0;
-        testComplexData2[i] = sin(i);
+    for (int i = 0; i < L; i++) {
+        testData[i] = sin(i);
     }
 }
