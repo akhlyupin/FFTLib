@@ -30,6 +30,6 @@ static void fft_basic(complex float * in, complex float * out, int stride, int n
         }
     }
 }
-void FFTCpuRecursive_Process(complex float * in, complex float * out, int n) {
+void FFTBasic_Process(complex float * in, complex float * out, int n) {
 	fft_basic(in, out, 1,n);
 }

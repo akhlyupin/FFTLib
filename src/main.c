@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "TestData.h"
 #include "FftLut.h"
-#include "FFTCpuRecursive.h"
+#include "FFTBasic.h"
 #include "FFT2SSE.h"
 
 complex float outComplex[L];
@@ -42,7 +42,7 @@ int main() {
     fflush(stdout);
 
     long t = GetTickCount();
-    FFTCpuRecursive_Process(testComplexData2, outComplex, L);
+    FFTBasic_Process(testComplexData2, outComplex, L);
     printf("%dms\n", GetTickCount() - t);
 
     printf("FFT with Look-up table: ");
