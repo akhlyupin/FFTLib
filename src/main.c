@@ -5,8 +5,8 @@
 #include "TestData.h"
 #include "FFTCpuIterate.h"
 #include "FFTCpuRecursive.h"
+#include "FFT2SSE.h"
 
-float out[L * 2];
 Complex_t outComplex[L];
 complex float outComplex1[L];
 complex float outComplex2[L];
@@ -35,32 +35,38 @@ void isDataEquals(float * d0, float * d1, int n) {
 
 int main() {
     TestData_Init();
-    long t = GetTickCount();
     FFTCpuIterate_Init(L);
+    FFT2SSE_Init(L);
 
-    
-    printf("Recursive...\n");
+    printf("FFT Basic: ");
     fflush(stdout);
+
+    long t = GetTickCount();
     FFTCpuRecursive_Process(testComplexData, L, outComplex);
+    printf("%dms\n", GetTickCount() - t);
 
-    printf("FFT R Period = %d\n", GetTickCount() - t);
-
-    printf("Iterate...\n");
+    printf("FFT with Look-up table: ");
     fflush(stdout);
 
     t = GetTickCount();
     FFTCpuIterate_Process(testComplexData2, outComplex1, L);
-    printf("FFT I Period = %d\n", GetTickCount() - t);
+    printf("%dms\n", GetTickCount() - t);
+    
+    printf("FFT with Look-up table and SSE instructions: ");
     fflush(stdout);
     
     t = GetTickCount();
-
-    printf("Check equals...\n");
+    FFT2SSE_Process(testComplexData2, outComplex2, L);
+    printf("%dms\n", GetTickCount() - t);
+    
+    printf("\nCheck equals...\n");
     fflush(stdout);
 
     t = GetTickCount();
     isDataEquals((float *)outComplex, (float *)outComplex1, L * 2);
-    printf("Period = %d\n", GetTickCount() - t);
+    //isDataEquals(testData, (float *)testComplexData2, L * 2);
+    isDataEquals((float *)outComplex, (float *)outComplex2, L * 2);
+    printf("Check time period: %dms\n", GetTickCount() - t);
 
     FFTCpuIterate_Close();
     return 0;
