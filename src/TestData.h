@@ -8,9 +8,7 @@
 #include <complex.h>
 
 #define L       8388608
-#define ORDER   23
 
-extern float testData[L * 2]; 
 extern Complex_t testComplexData[L];
 extern complex float testComplexData2[L];
 
