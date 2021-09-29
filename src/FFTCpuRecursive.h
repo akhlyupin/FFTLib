@@ -4,9 +4,7 @@
 #ifndef FFT_CPU_RECURSIVE_H
 #define FFT_CPU_RECURSIVE_H
 
-#include "Complex.h"
-
 extern void FFTCpuRecursive_Process(
-    Complex_t * data_in, int n, Complex_t * data_out);
+    complex float * in, complex float * out, int n);
 
 #endif

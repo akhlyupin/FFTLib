@@ -1,55 +1,35 @@
 /*  Date: 09/22/21
     Author: Artem Khlyupin
 */
-#include "Complex.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <complex.h>
 
+#define _W(N, k) (cexp(-2.0f * M_PI * I * (float)(k) / (float)(N)))
+#define W(N, k) (float complex)(_W(N, k))
 
-void FFTCpuRecursive_Process(
-	Complex_t * data_in, int n, Complex_t * data_out) {
+static void fft_basic(complex float * in, complex float * out, int stride, int n) {
+	if (n == 2) { 
+        out[0] = in[0] + in[stride];
+        out[1] = in[0] - in[stride];
+    } else {
+        fft_basic(in, out, stride << 1, n >> 1);
+        fft_basic(in + stride, out + n / 2, stride << 1, n >> 1);
 
-	if (n == 1) {
-		data_out[0] = data_in[0];
-		return;
-	}
+        complex float even = out[0];
+        complex float odd = out[n / 2];
+        out[0] = even + odd;
+        out[n / 2] = even - odd;
 
-	if (n % 2 != 0) {
-		printf("Error. Length % 2 != 0.");
-		return;
-	}
-
-	// compute FFT of even terms
-	Complex_t * d = malloc(sizeof(Complex_t) * n / 2);
-    for (int k = 0; k < n / 2; k++) {
-            d[k].re = data_in[2 * k].re;
-			d[k].im = data_in[2 * k].im;
+        for (int k = 1; k < n / 2; k++) {
+            even = out[k];
+            odd = out[k + n / 2];
+            out[k] = even + W(n, k) * odd;
+            out[k + n / 2] = even - W(n, k) * odd;
+        }
     }
-	Complex_t * evenFFT = malloc(sizeof(Complex_t) * n / 2);
-	FFTCpuRecursive_Process(d, n / 2, evenFFT);
-
-    // compute FFT of odd terms
-    for (int k = 0; k < n / 2; k++) {
-        d[k].re = data_in[2 * k + 1].re;
-		d[k].im = data_in[2 * k + 1].im;
-    }
-	Complex_t * oddFFT = malloc(sizeof(Complex_t) * n / 2);
-	FFTCpuRecursive_Process(d, n / 2, oddFFT);
-
-	// combine
-    for (int k = 0; k < n / 2; k++) {
-            double kth = -2 * (float)k * M_PI / (float)n;
-            Complex_t wk;
-			wk.re = cos(kth); wk.im = sin(kth);
-
-			Complex_t temp0;
-			mulComplex(&wk, &oddFFT[k], &temp0);
-			addComplex(&evenFFT[k], &temp0, &data_out[k]);
-			subComplex(&evenFFT[k], &temp0, &data_out[k + n / 2]);
-    }
-
-	free(d);
-	free(evenFFT);
-	free(oddFFT);
+}
+void FFTCpuRecursive_Process(complex float * in, complex float * out, int n) {
+	fft_basic(in, out, 1,n);
 }
