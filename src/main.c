@@ -8,15 +8,18 @@
 
 float out[L * 2];
 Complex_t outComplex[L];
+complex float outComplex2[L];
+
+#define BIT_RES 1//21
 
 bool isFloatEqual(float a, float b) {
     unsigned int * aI = (unsigned int *)&a;
     unsigned int * bI = (unsigned int *)&b;
 
     if (*aI > *bI) {
-        return *aI - *bI < 2;
+        return *aI - *bI < (1 << BIT_RES);
     } 
-    return *bI - *aI < 2;
+    return *bI - *aI < (1 << BIT_RES);
 }
 
 void isOutEquals() {
@@ -27,6 +30,16 @@ void isOutEquals() {
                 i, out[i * 2], out[i * 2 + 1], outComplex[i].re,  outComplex[i].im);
             //return;
 
+        }
+    }
+    printf("Equals!\n");
+}
+
+void isDataEquals(float * d0, float * d1, int n) {
+    for (int i = 0 ; i < n; i++) {
+        if ( !isFloatEqual(d0[i], d1[i]) ) {
+            printf("Error: %d\n(%f %f)\n", i, d0[i], d1[i]);
+            //return;
         }
     }
     printf("Equals!\n");
@@ -43,23 +56,22 @@ int main() {
     FFTCpuRecursive_Process(testComplexData, L, outComplex);
 
     printf("FFT R Period = %d\n", GetTickCount() - t);
-    fflush(stdout);
-    
 
     printf("Iterate...\n");
     fflush(stdout);
+
     t = GetTickCount();
     FFTCpuIterate_Process(out);
-
     printf("FFT I Period = %d\n", GetTickCount() - t);
     fflush(stdout);
+    
     t = GetTickCount();
 
     printf("Check equals...\n");
     fflush(stdout);
-    isOutEquals();
 
-
+    t = GetTickCount();
+    isDataEquals(out, (float *)outComplex, L * 2);
     printf("Period = %d\n", GetTickCount() - t);
 
     return 0;
