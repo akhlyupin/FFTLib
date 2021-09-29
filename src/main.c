@@ -5,7 +5,7 @@
 #include "TestData.h"
 #include "FFTLut.h"
 #include "FFTBasic.h"
-#include "FFT2SSE.h"
+#include "FFTSSE.h"
 
 complex float outComplex[L];
 complex float outComplex1[L];
@@ -36,7 +36,7 @@ void isDataEquals(float * d0, float * d1, int n) {
 int main() {
     TestData_Init();
     FFTLut_Init(L);
-    FFT2SSE_Init(L);
+    FFTSSE_Init(L);
 
     printf("FFT Basic: ");
     fflush(stdout);
@@ -56,7 +56,7 @@ int main() {
     fflush(stdout);
     
     t = GetTickCount();
-    FFT2SSE_Process(testComplexData2, outComplex2, L);
+    FFTSSE_Process(testComplexData2, outComplex2, L);
     printf("%dms\n", GetTickCount() - t);
     
     printf("\nCheck equals...\n");
@@ -64,10 +64,12 @@ int main() {
 
     t = GetTickCount();
     isDataEquals((float *)outComplex, (float *)outComplex1, L * 2);
-    //isDataEquals(testData, (float *)testComplexData2, L * 2);
     isDataEquals((float *)outComplex, (float *)outComplex2, L * 2);
     printf("Check time period: %dms\n", GetTickCount() - t);
+    fflush(stdout);
 
     FFTLut_Close();
+    FFTSSE_Close();
+    printf("Close.\n");
     return 0;
 }
