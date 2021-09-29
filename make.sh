@@ -3,5 +3,5 @@ gcc -O3 -s -msse \
     src/Complex.c \
     src/FFTCpuRecursive.c \
     src/TestData.c \
-    src/FFTCpuIterate.c \
+    src/FftLut.c \
     src/FFT2SSE.c

@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include "TestData.h"
-#include "FFTCpuIterate.h"
+#include "FftLut.h"
 #include "FFTCpuRecursive.h"
 #include "FFT2SSE.h"
 
@@ -35,7 +35,7 @@ void isDataEquals(float * d0, float * d1, int n) {
 
 int main() {
     TestData_Init();
-    FFTCpuIterate_Init(L);
+    FftLut_Init(L);
     FFT2SSE_Init(L);
 
     printf("FFT Basic: ");
@@ -49,7 +49,7 @@ int main() {
     fflush(stdout);
 
     t = GetTickCount();
-    FFTCpuIterate_Process(testComplexData2, outComplex1, L);
+    FftLut_Process(testComplexData2, outComplex1, L);
     printf("%dms\n", GetTickCount() - t);
     
     printf("FFT with Look-up table and SSE instructions: ");
@@ -68,6 +68,6 @@ int main() {
     isDataEquals((float *)outComplex, (float *)outComplex2, L * 2);
     printf("Check time period: %dms\n", GetTickCount() - t);
 
-    FFTCpuIterate_Close();
+    FftLut_Close();
     return 0;
 }

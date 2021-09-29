@@ -1,5 +1,6 @@
 /*  Date: 09/22/21
     Author: Artem Khlyupin
+    Overview: FFT with look-up table implementation
 */
 #include <math.h>
 #include <stdio.h>
@@ -13,7 +14,7 @@
 
 static complex float * wTable;
 
-void FFTCpuIterate_Init(int n) {
+void FftLut_Init(int n) {
     wTable = malloc(n / 2 * sizeof(complex float));
 
     //fill w table
@@ -22,7 +23,7 @@ void FFTCpuIterate_Init(int n) {
     }
 }
 
-void FFTCpuIterate_Close() {
+void FftLut_Close() {
     free(wTable);
 }
 
@@ -48,6 +49,6 @@ static void fft_lut_proc(complex float * in, complex float * out, int stride, in
     }
 }
 
-void FFTCpuIterate_Process(complex float * in, complex float * out, int n) {
+void FftLut_Process(complex float * in, complex float * out, int n) {
     fft_lut_proc(in, out, 1, n);
 }
