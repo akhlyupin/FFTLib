@@ -39,7 +39,7 @@ void FFTCpuRecursive_Process(
 
 	// combine
     for (int k = 0; k < n / 2; k++) {
-            double kth = -2 * k * M_PI / n;
+            double kth = -2 * (float)k * M_PI / (float)n;
             Complex_t wk;
 			wk.re = cos(kth); wk.im = sin(kth);
 

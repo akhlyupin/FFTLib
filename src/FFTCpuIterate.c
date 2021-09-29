@@ -46,7 +46,6 @@ void FFTCpuIterate_Process(float * out) {
     float temp[2];
     float even[2];
     float odd[2];
-    float wk[2];
     int factor = ORDER;
 
     for (int n = 2; n <= L; n <<= 1) {
@@ -54,12 +53,9 @@ void FFTCpuIterate_Process(float * out) {
 
         for (int j = 0; j < L / n; j++) {
             for (int k = 0; k < n / 2; k++) {
-                //double kth = -2 * k * M_PI / n;
-                wk[0] = kthCosTable[k << factor];//kthCosTable[k * (L / n)];
-                wk[1] = kthSinTable[k << factor];//kthSinTable[k * (L / n)];
 
                 int evenIndex = (j * n + k) * 2;
-                int oddIndex = evenIndex + n; //(j * n + k + n / 2) * 2;
+                int oddIndex = evenIndex + n;       //(j * n + k + n / 2) * 2;
 
                 even[0] = out[evenIndex];
                 even[1] = out[evenIndex + 1];
@@ -67,15 +63,13 @@ void FFTCpuIterate_Process(float * out) {
                 odd[1]= out[oddIndex + 1];
 
                 //temp = wk * odd
-                temp[0] = wk[0] * odd[0] - wk[1] * odd[1];
-                temp[1] = wk[0] * odd[1] + wk[1] * odd[0];
+                temp[0] = kthCosTable[k << factor] * odd[0] - kthSinTable[k << factor] * odd[1];
+                temp[1] = kthCosTable[k << factor] * odd[1] + kthSinTable[k << factor] * odd[0];
 
-
-                out[evenIndex] = even[0] + temp[0];
-                out[evenIndex + 1] = even[1] + temp[1];
-                out[oddIndex] = even[0] - temp[0];
-                out[oddIndex + 1] = even[1] - temp[1];
-
+                out[evenIndex] =        even[0] + temp[0];
+                out[evenIndex + 1] =    even[1] + temp[1];
+                out[oddIndex] =         even[0] - temp[0];
+                out[oddIndex + 1] =     even[1] - temp[1];
             }
         }
     }
