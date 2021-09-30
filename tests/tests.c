@@ -2,14 +2,23 @@
 #include <windows.h>
 #include <math.h>
 #include <stdbool.h>
-#include "TestData.h"
 #include "FFTLut.h"
 #include "FFTBasic.h"
 #include "FFTSSE.h"
 
+#define L       8388608
+
 complex float outData0[L];
 complex float outData1[L];
 complex float outData2[L];
+
+complex float testData[L];
+
+static void initTestData() {
+    for (int i = 0; i < L; i++) {
+        testData[i] = sin(i);
+    }
+}
 
 #define BIT_RES 1//21
 
@@ -34,7 +43,7 @@ void isDataEquals(float * d0, float * d1, int n) {
 }
 
 int main() {
-    TestData_Init();
+    initTestData();
     FFTLut_Init(L);
     FFTSSE_Init(L);
 

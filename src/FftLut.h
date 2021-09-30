@@ -5,6 +5,8 @@
 #ifndef FFT_LUT_H
 #define FFT_LUT_H
 
+#include <complex.h>
+
 extern void FFTLut_Init(int n);
 extern void FFTLut_Close();
 
