@@ -1,3 +1,7 @@
+/*  Date: 09/30/21
+    Author: Artem Khlyupin
+*/
+
 #include <stdio.h>
 #include <windows.h>
 #include <math.h>
