@@ -1,6 +1,7 @@
 /*  Date: 10/08/21
     Author: Artem Khlyupin
 */
+package com.e1da.fft;
 
 public class FFT {
     static {

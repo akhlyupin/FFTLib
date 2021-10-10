@@ -7,28 +7,29 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 /*
- * Class:     FFT
+ * Class:     com_e1da_fft_FFT
  * Method:    init
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_FFT_init
+JNIEXPORT jboolean JNICALL Java_com_e1da_fft_FFT_init
   (JNIEnv *, jobject, jint, jint);
 
 /*
- * Class:     FFT
+ * Class:     com_e1da_fft_FFT
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_FFT_close
+JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_close
   (JNIEnv *, jobject);
 
 /*
- * Class:     FFT
+ * Class:     com_e1da_fft_FFT
  * Method:    process
  * Signature: ([F[F)V
  */
-JNIEXPORT void JNICALL Java_FFT_process
+JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_process
   (JNIEnv *, jobject, jfloatArray, jfloatArray);
 
 #ifdef __cplusplus

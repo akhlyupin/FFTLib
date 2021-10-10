@@ -11,7 +11,7 @@ static jint throwError(JNIEnv * env, const char * msg) {
 
 }
 
-JNIEXPORT jboolean JNICALL Java_FFT_init(
+JNIEXPORT jboolean JNICALL Java_com_e1da_fft_FFT_init(
     JNIEnv * env, jobject o, jint type, jint n) {
 
     if (type < 0) type = 0;
@@ -29,7 +29,7 @@ JNIEXPORT jboolean JNICALL Java_FFT_init(
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_FFT_close(
+JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_close(
     JNIEnv * env, jobject o) {
     
     if (!FFT_Close()) {
@@ -42,7 +42,7 @@ JNIEXPORT void JNICALL Java_FFT_close(
  * Method:    process
  * Signature: ([F[F)V
  */
-JNIEXPORT void JNICALL Java_FFT_process(
+JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_process(
     JNIEnv * env, jobject o, jfloatArray in, jfloatArray out) {
 
     jsize inLength = (*env)->GetArrayLength(env, in);

@@ -1,3 +1,4 @@
+package com.e1da.fft;
 
 public class Test {
     public static void main(String[] args) {
