@@ -3,14 +3,14 @@
 */
 package com.e1da.fft;
 
-public class FFT {
+public class JFFT {
     static {
         System.loadLibrary("JFFT");
     }
     
     private native boolean init(int type, int n);
 
-    public FFT(int type, int n) throws Exception {
+    public JFFT(int type, int n) throws Exception {
         if (!init(type, n)) {
             throw new Exception("FFT init error!");
         }

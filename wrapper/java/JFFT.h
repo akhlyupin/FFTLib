@@ -9,27 +9,27 @@ extern "C" {
 #endif
 
 /*
- * Class:     com_e1da_fft_FFT
+ * Class:     com_e1da_fft_JFFT
  * Method:    init
  * Signature: (II)Z
  */
-JNIEXPORT jboolean JNICALL Java_com_e1da_fft_FFT_init
+JNIEXPORT jboolean JNICALL Java_com_e1da_fft_JFFT_init
   (JNIEnv *, jobject, jint, jint);
 
 /*
- * Class:     com_e1da_fft_FFT
+ * Class:     com_e1da_fft_JFFT
  * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_close
+JNIEXPORT void JNICALL Java_com_e1da_fft_JFFT_close
   (JNIEnv *, jobject);
 
 /*
- * Class:     com_e1da_fft_FFT
+ * Class:     com_e1da_fft_JFFT
  * Method:    process
  * Signature: ([F[F)V
  */
-JNIEXPORT void JNICALL Java_com_e1da_fft_FFT_process
+JNIEXPORT void JNICALL Java_com_e1da_fft_JFFT_process
   (JNIEnv *, jobject, jfloatArray, jfloatArray);
 
 #ifdef __cplusplus

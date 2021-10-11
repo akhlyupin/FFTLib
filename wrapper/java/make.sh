@@ -1,1 +1,1 @@
-javac -d ../../build/wrapper/java Test.java FFT.java
+javac -d ../../build/wrapper/java Test.java JFFT.java

@@ -6,7 +6,7 @@ public class Test {
         float[] out = new float[in.length];
 
         try {
-            FFT fft = new FFT(1, 4);
+            JFFT fft = new JFFT(1, 4);
             fft.process(in, out);
             fft.close();
 
