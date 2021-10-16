@@ -11,7 +11,7 @@ ar rcs build/libFFT.lib \
     build/FFTLut.o \
     build/FFTBasic.o
 
-gcc -shared -o build/FFT.dll \
+gcc -shared -static -static-libgcc -o build/FFT.dll \
     build/FFT.o \
     build/FFTSSE.o \
     build/FFTLut.o \
@@ -25,7 +25,7 @@ gcc -O3 -s -msse -o build/tests/test_equal \
     build/tests/test_equal.o \
     build/libFFT.lib
 
-gcc -shared -o build/wrapper/java/JFFT.dll \
+gcc -shared -static -static-libgcc -o build/wrapper/java/JFFT.dll \
     -I"C:\Program Files\Java\jdk-15.0.2\include" \
     -I"C:\Program Files\Java\jdk-15.0.2\include\win32" \
     -I"src/" \
