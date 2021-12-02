@@ -1,3 +1,8 @@
+[ ! -d "build/" ] && mkdir build/
+[ ! -d "build/tests" ] && mkdir build/tests
+[ ! -d "build/wrapper" ] && mkdir build/wrapper
+[ ! -d "build/wrapper/java" ] && mkdir build/wrapper/java
+
 gcc -O3 -msse -I"src/" -c -o build/FFTBasic.o src/FFTBasic.c
 gcc -O3 -msse -I"src/" -c -o build/FFTLut.o src/FFTLut.c
 gcc -O3 -msse -I"src/" -c -o build/FFTSSE.o src/FFTSSE.c
