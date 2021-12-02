@@ -1,7 +1,7 @@
 /*  Date: 10/09/21
     Author: Artem Khlyupin
 */
-#include "JFFT.h"
+#include "com_e1da_fft_JFFT.h"
 #include "FFT.h"
 #include <complex.h>
 
