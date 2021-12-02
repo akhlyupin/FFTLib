@@ -7,7 +7,7 @@ public class Test {
 
         try {
             JFFT fft = new JFFT(1, 4);
-            System.out.println("Version: " + fft.getVersionString());
+            System.out.println("Version: " + fft.toString());
 
             fft.process(in, out);
             fft.close();

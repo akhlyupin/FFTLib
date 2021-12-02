@@ -3,7 +3,9 @@
 */
 package com.e1da.fft;
 
-public class JFFT {
+import java.util.Calendar;
+
+public class JFFT implements FFT {
     static {
         System.loadLibrary("JFFT");
     }
@@ -16,14 +18,34 @@ public class JFFT {
         }
     }
 
+    @Override
     public native void close() throws Exception;
+    @Override
     public native void process(float[] in, float[] out) throws Exception;
 
     public native int getVersion();
-    public String getVersionString() {
+
+    @Override
+    public String toString() {
         int v = getVersion();
         return Integer.toString((v & 0xFF0000) >> 16) + "." + 
                 Integer.toString((v & 0xFF00) >> 8) + "." + 
                 Integer.toString(v & 0xFF);
+    }
+
+    @Override
+    public int performance(int n) {
+        float[] in = SinData.getComplex(n);
+        float[] out = new float[in.length];
+
+        try {
+            long time = Calendar.getInstance().getTimeInMillis();
+            process(in, out);
+            return (int)(Calendar.getInstance().getTimeInMillis() - time);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return -1;
     }
 }
