@@ -19,4 +19,11 @@ public class JFFT {
     public native void close() throws Exception;
     public native void process(float[] in, float[] out) throws Exception;
 
+    public native int getVersion();
+    public String getVersionString() {
+        int v = getVersion();
+        return Integer.toString((v & 0xFF0000) >> 16) + "." + 
+                Integer.toString((v & 0xFF00) >> 8) + "." + 
+                Integer.toString(v & 0xFF);
+    }
 }

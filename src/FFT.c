@@ -55,3 +55,7 @@ bool FFT_Process(complex float * in, complex float * out, int n) {
             return false;
     }
 }
+
+int FFT_GetVersion() {
+    return (VERSION_MAJOR << 16) | (VERSION_MINOR << 8) | VERSION_PATCH; 
+}

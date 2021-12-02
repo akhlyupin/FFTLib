@@ -64,3 +64,8 @@ JNIEXPORT void JNICALL Java_com_e1da_fft_JFFT_process(
     (*env)->ReleaseFloatArrayElements(env, out, outArr, 0);
 
 }
+
+JNIEXPORT jint JNICALL Java_com_e1da_fft_JFFT_getVersion(
+    JNIEnv * env, jobject o) {
+        return FFT_GetVersion();
+}
