@@ -11,7 +11,7 @@
 #define _W(N, k) (cexp(-2.0f * M_PI * I * (float)(k) / (float)(N)))
 #define W(N, k) (float complex)(_W(N, k))
 
-complex float ** LUT;
+complex float ** LUT = NULL;
 int length = 0;
 
 static void fft_sse(complex float * in, complex float * out, int log2stride, int stride, int N) {
@@ -120,12 +120,16 @@ void FFTSSE_Init(int n) {
 void FFTSSE_Close() {
     if (length < 8) return;
 
-    int n_luts = log2(length) - 2;
+    if (LUT) {
+        int n_luts = log2(length) - 2;
+        
+        for (int i = 0; i < n_luts; i++) {
+            _mm_free(LUT[i]);
+        }
     
-    for (int i = 0; i < n_luts; i++) {
-        _mm_free(LUT[i]);
+        free(LUT);
+        LUT = NULL;
     }
-    free(LUT);
 }
 
 void FFTSSE_Process(complex float * in, complex float * out, int n) {

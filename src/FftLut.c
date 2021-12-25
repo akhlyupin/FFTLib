@@ -12,7 +12,7 @@
 #define _W(N, k) (cexp(-2.0f * M_PI * I * (float)(k) / (float)(N)))
 #define W(N, k) (float complex)(_W(N, k))
 
-static complex float * wTable;
+static complex float * wTable = NULL;
 
 void FFTLut_Init(int n) {
     wTable = malloc(n / 2 * sizeof(complex float));
@@ -24,7 +24,10 @@ void FFTLut_Init(int n) {
 }
 
 void FFTLut_Close() {
-    free(wTable);
+    if (wTable) {
+        free(wTable);
+        wTable = NULL;
+    }
 }
 
 static void fft_lut_proc(complex float * in, complex float * out, int stride, int n) {
