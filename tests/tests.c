@@ -3,12 +3,19 @@
 */
 
 #include <stdio.h>
-#include <windows.h>
 #include <math.h>
 #include <stdbool.h>
 #include "FFTLut.h"
 #include "FFTBasic.h"
 #include "FFTSSE.h"
+
+#if defined(__APPLE__) || defined(__linux__)
+    #include <time.h>
+    #include <stdint.h>
+#elif defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+#endif
+
 
 #define L       8388608
 
@@ -45,6 +52,14 @@ void isDataEquals(float * d0, float * d1, int n) {
     }
     printf("Equals!\n");
 }
+
+#if defined(__APPLE__) || defined(__linux__)
+long GetTickCount() {
+    struct timespec ts;
+    clock_gettime( CLOCK_REALTIME, &ts );
+    return ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
+}
+#endif
 
 int main() {
     initTestData();
