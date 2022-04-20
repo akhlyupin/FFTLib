@@ -56,21 +56,21 @@ int main() {
 
     long t = GetTickCount();
     FFTBasic_Process(testData, outData0, L);
-    printf("%dms\n", GetTickCount() - t);
+    printf("%ldms\n", GetTickCount() - t);
 
     printf("FFT with Look-up table: ");
     fflush(stdout);
 
     t = GetTickCount();
     FFTLut_Process(testData, outData1, L);
-    printf("%dms\n", GetTickCount() - t);
+    printf("%ldms\n", GetTickCount() - t);
     
     printf("FFT with Look-up table and SSE instructions: ");
     fflush(stdout);
     
     t = GetTickCount();
     FFTSSE_Process(testData, outData2, L);
-    printf("%dms\n", GetTickCount() - t);
+    printf("%ldms\n", GetTickCount() - t);
     
     printf("\nCheck equals...\n");
     fflush(stdout);
@@ -78,7 +78,7 @@ int main() {
     t = GetTickCount();
     isDataEquals((float *)outData0, (float *)outData1, L * 2);
     isDataEquals((float *)outData0, (float *)outData2, L * 2);
-    printf("Check time period: %dms\n", GetTickCount() - t);
+    printf("Check time period: %ldms\n", GetTickCount() - t);
     fflush(stdout);
 
     FFTLut_Close();
