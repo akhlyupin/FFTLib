@@ -1,6 +1,35 @@
 # FFTLib
 
-FFTLib is fast fourier transform library on C lang with Java wrapper. Uses SSE instructions. In future i plan use AVX, AVX512, FMA instructions.
+FFTLib is fast fourier transform library on C lang with Java wrapper. 
 
-I develop this library for E1DA CosmosADC analyzer tool. Not found simple and fast fft library.
-The project goal is to convert a buffer with a length of 8 million less than 200-300ms on an average 5-7 year old computer
+Uses SIMD processor instructions:
+- SSE
+- ~~AVX~~
+- ~~AVX512~~
+
+
+___
+
+## Build:
+
+### Windows
+
+Need CMake, MinGW.
+
+```
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles" -DCMAKE_MAKE_PROGRAM=mingw32-make
+cmake --build .
+```
+
+### GNU/Linux & macOS
+
+Need CMake.
+
+```
+mkdir build
+cd build
+cmake .. 
+cmake --build .
+```
