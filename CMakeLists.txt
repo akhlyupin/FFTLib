@@ -5,12 +5,12 @@ project(FFTLib)
 
 # add the static library
 add_library(FFTLibStatic STATIC src/FFT.c src/FFTBasic.c src/FFTLut.c src/FFTSSE.c)
-target_compile_options(FFTLibStatic PRIVATE -msse -O3)
+target_compile_options(FFTLibStatic PRIVATE -msse -O3 -fPIC)
 set_target_properties(FFTLibStatic PROPERTIES OUTPUT_NAME FFTLib)
 
 # add the shared library
 add_library(FFTLib SHARED src/FFT.c src/FFTBasic.c src/FFTLut.c src/FFTSSE.c)
-target_compile_options(FFTLib PRIVATE -msse -O3)
+target_compile_options(FFTLib PRIVATE -msse -O3 -fPIC)
 
 # add java library
 find_package(JNI REQUIRED)
@@ -27,5 +27,5 @@ target_compile_options(FFTLibTest PRIVATE -msse -O3)
 
 target_include_directories(FFTLibTest PRIVATE src/)
 
-target_link_libraries(FFTLibTest PUBLIC FFTLib)
+target_link_libraries(FFTLibTest PUBLIC FFTLib m)
 
