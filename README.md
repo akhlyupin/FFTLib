@@ -33,3 +33,18 @@ cd build
 cmake .. 
 cmake --build .
 ```
+## Run tests:
+
+### C
+
+```
+cd build
+./FFTLibTest
+```
+
+### Java
+
+```
+cd build
+java -Djava.library.path="." -jar JFFTTest.jar
+```
