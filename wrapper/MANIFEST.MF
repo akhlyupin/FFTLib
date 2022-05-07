@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: Artem Khlyupin <trimp@yandex.ru>
+Main-Class: com.e1da.fft.Test
+Class-Path: JFFT.jar
+
+
