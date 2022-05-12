@@ -6,13 +6,19 @@ project(FFTLib)
 # add the static library
 add_library(FFTLibStatic STATIC src/FFT.c src/FFTBasic.c src/FFTLut.c src/FFTSSE.c)
 target_compile_options(FFTLibStatic PRIVATE -msse -O3 -fPIC)
-target_link_options(FFTLibStatic PUBLIC -static -static-libgcc)
+if (MINGW)
+        message("MinGw usage")
+        target_link_options(FFTLibStatic PUBLIC -static -static-libgcc)
+endif()
 set_target_properties(FFTLibStatic PROPERTIES OUTPUT_NAME FFTLib)
 
 # add the shared library
 add_library(FFTLib SHARED src/FFT.c src/FFTBasic.c src/FFTLut.c src/FFTSSE.c)
 target_compile_options(FFTLib PRIVATE -msse -O3 -fPIC)
-target_link_options(FFTLib PUBLIC -static -static-libgcc)
+if (MINGW)
+        message("MinGw usage")
+        target_link_options(FFTLib PUBLIC -static -static-libgcc)
+endif()
 
 # add java library
 find_package(JNI REQUIRED)
@@ -21,7 +27,6 @@ message("JNI lib dir: " ${JNI_LIBRARIES})
 
 add_library(FFTJavaWrapper SHARED wrapper/java/JFFT.c)
 target_include_directories(FFTJavaWrapper PRIVATE src/ ${JNI_INCLUDE_DIRS})
-target_link_options(FFTJavaWrapper PUBLIC -static -static-libgcc)
 target_link_libraries(FFTJavaWrapper PUBLIC FFTLibStatic)
 set_target_properties(FFTJavaWrapper PROPERTIES OUTPUT_NAME JFFT)
 
