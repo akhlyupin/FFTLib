@@ -48,3 +48,7 @@ target_include_directories(FFTLibTest PRIVATE src/)
 
 target_link_libraries(FFTLibTest PUBLIC FFTLib m)
 
+# add harmonic test
+add_executable(HarmonicTest tests/test_harmonics.cpp)
+target_compile_options(HarmonicTest PRIVATE -msse -O3)
+target_include_directories(HarmonicTest PRIVATE src/ tests/sample)
